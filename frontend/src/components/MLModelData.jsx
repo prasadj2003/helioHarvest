@@ -9,6 +9,7 @@ const WeatherComponent = () => {
     const [month, setMonth] = useState();
     const [solarZenithAngle, setSolarZenithAngle] = useState({});
     const [error, setError] = useState(null);
+    const [city, setCity] = useState("");
 
     useEffect(() => {
         const getLatLong = () => {
@@ -72,8 +73,17 @@ const WeatherComponent = () => {
             }
         };
 
+        const getCity = async () => {
+            const { latitude, longitude } = await getLatLong();
+            const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&json`)
+            const city = res.data
+            // console.log("This is the address: " + city.address.city)
+            setCity(city.address.city)
+        }
+
         fetchWeatherData();
         fetchSolarZenithAngle();
+        getCity();
     }, []);
 
     return (
@@ -84,8 +94,11 @@ const WeatherComponent = () => {
             <p>UV Index: {uvIndex}</p>
             <p>Wind Speed: {windSpeed}</p>
             <p>Month: {month}</p>
+            <p>City is: {city}</p>
             <h2>Solar Zenith Angle</h2>
+
             <pre>{JSON.stringify(solarZenithAngle, null, 2)}</pre>
+
         </div>
     );
 };
