@@ -234,11 +234,16 @@ const MapboxExample = () => {
     map.addControl(draw);
 
     // Handle draw events
-    function updateArea(e) {
+    async function updateArea(e) {
       const data = draw.getAll();
       if (data.features.length > 0) {
         const area = turf.area(data);
         setRoundedArea(Math.round(area * 100) / 100);
+        // send area to the backend as well
+        const areaToSend = (Math.round(area*100) / 100)
+        const res = await axios.get(`http://localhost:3000/calculatePotential?area=${areaToSend}`) // this is undefined
+        // const res = await axios.get(`http://localhost:3000/calculatePotential?area=112.5`)
+        setSolarPotential(res.data)
       } else {
         setRoundedArea(null);
         if (e.type !== 'draw.delete') alert('Click the map to draw a polygon.');
@@ -332,6 +337,7 @@ const MapboxExample = () => {
 
                 {/* Irradiation Data */}
                 <div className="shadow-2xl rounded-xl transition-transform transform hover:scale-105">
+                  <p>solar potential is: {solarPotential} kWh</p>
                   <IrradiationData />
                 </div>
               </div>

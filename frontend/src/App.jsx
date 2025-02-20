@@ -8,14 +8,14 @@ import WeatherComponent from './components/MLModelData';
 
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/MapboxExample" element={<MapboxExample />} />
-    //     <Route path="/" element={<Home />} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/MapboxExample" element={<MapboxExample />} />
+        <Route path="/" element={<Home />} />
 
-    //   </Routes>
-    // </BrowserRouter>
-    <WeatherComponent />
+      </Routes>
+    </BrowserRouter>
+    // <WeatherComponent />
     // <IrradiationData />
   );
 }
