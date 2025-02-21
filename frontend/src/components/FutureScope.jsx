@@ -12,7 +12,8 @@ function FutureScope() {
       {/* Hero Section */}
       <header className="bg-white shadow-lg">
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer"
+                        onClick={() => navigate('/')}> 
             <Sun className="h-8 w-8 text-yellow-500" />
             <span className="text-2xl font-bold text-sky-900">helioHarvest</span>
           </div>
