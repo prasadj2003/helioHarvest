@@ -5,6 +5,7 @@ import Home from './components/Home';
 import { Route, Routes, BrowserRouter } from "react-router"
 import './App.css';
 import WeatherComponent from './components/MLModelData';
+import FutureScope from './components/FutureScope';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/MapboxExample" element={<MapboxExample />} />
         <Route path="/" element={<Home />} />
-
+        <Route path='/futureScope' element={<FutureScope />} />
       </Routes>
     </BrowserRouter>
     // <WeatherComponent />

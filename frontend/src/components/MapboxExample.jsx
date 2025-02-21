@@ -157,6 +157,9 @@
 
 // export default MapboxExample;
 
+// ------------------------------------------------------------Original code----------------------------------------------------------------------------------
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -350,3 +353,5 @@ const MapboxExample = () => {
 };
 
 export default MapboxExample;
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
