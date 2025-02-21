@@ -160,39 +160,229 @@
 // ------------------------------------------------------------Original code----------------------------------------------------------------------------------
 
 
+// import React, { useEffect, useRef, useState } from 'react';
+// import mapboxgl from 'mapbox-gl';
+// import MapboxDraw from '@mapbox/mapbox-gl-draw';
+// import * as turf from '@turf/turf'
+// import Sidebar from './Sidebar';
+// import WeatherData from './WeatherData';
+// import IrradiationData from './IrradiationData';
+
+// import 'mapbox-gl/dist/mapbox-gl.css';
+// import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+// import axios from 'axios';
+
+// const MapboxExample = () => {
+//   const mapContainerRef = useRef(null);
+//   const [lat, setLat] = useState(null);
+//   const [long, setLong] = useState(null);
+//   const [roundedArea, setRoundedArea] = useState();
+//   const [solarPotential, setSolarPotential] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [irradiationData, setIrradiationData] = useState(null);
+
+//   // Get user location using Geolocation API
+//   useEffect(() => {
+//     if (!navigator.geolocation) {
+//       alert('Geolocation is not supported by your browser.');
+//       return;
+//     }
+
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+//         const { latitude, longitude } = position.coords;
+//         setLat(latitude);
+//         setLong(longitude);
+//       },
+//       (error) => {
+//         alert('Unable to retrieve your location. Please allow location access.');
+//         console.error(error);
+//       }
+//     );
+//   }, []);
+
+//   // map creation and positioning of pointer
+//   useEffect(() => {
+//     if (lat === null || long === null) return;
+
+//     mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2YTcwMzg4IiwiYSI6ImNtNjYybnRudTB2bTQybHF2azNjYm90emoifQ.MvLlGsaPsUBC8wmvg_t7gQ';
+
+//     const map = new mapboxgl.Map({
+//       container: mapContainerRef.current,
+//       style: 'mapbox://styles/mapbox/satellite-v9',
+//       projection: 'globe',
+//       center: [long, lat],
+//       zoom: 18,
+//     });
+
+//     // Add fog effect
+//     map.on('style.load', () => {
+//       map.setFog({});
+//     });
+
+//     // Add a marker at the user's location
+//     new mapboxgl.Marker()
+//       .setLngLat([long, lat])
+//       .addTo(map);
+
+//     // Add drawing controls to the map
+//     const draw = new MapboxDraw({
+//       displayControlsDefault: false,
+//       controls: {
+//         polygon: true,
+//         trash: true,
+//       },
+//       defaultMode: 'draw_polygon',
+//     });
+//     map.addControl(draw);
+
+//     // Handle draw events
+//     async function updateArea(e) {
+//       const data = draw.getAll();
+//       if (data.features.length > 0) {
+//         const area = turf.area(data);
+//         setRoundedArea(Math.round(area * 100) / 100);
+//         // send area to the backend as well
+//         const areaToSend = (Math.round(area*100) / 100)
+//         const res = await axios.get(`http://localhost:3000/calculatePotential?area=${areaToSend}`) // this is undefined
+//         // const res = await axios.get(`http://localhost:3000/calculatePotential?area=112.5`)
+//         setSolarPotential(res.data)
+//       } else {
+//         setRoundedArea(null);
+//         if (e.type !== 'draw.delete') alert('Click the map to draw a polygon.');
+//       }
+//     }
+
+//     map.on('draw.create', updateArea);
+//     map.on('draw.delete', updateArea);
+//     map.on('draw.update', updateArea);
+
+//     return () => {
+//       map.remove();
+//     };
+//   }, [lat, long]);
+
+//***************************remove after this line ****************************************
+
+//   // `https://re.jrc.ec.europa.eu/api/MRcalc?lat=${lat}&lon=${long}&optrad=1`
+//   // fetching the irradiation data. We need to send it to the backend for calculation
+
+
+
+//   // sending data to the /getLatLong endpoint
+//   // Send coordinates to backend
+//   // const sendLatLongData = async () => {
+//   //   try {
+//   //     if (!lat || !long) {
+//   //       setError('Please provide both latitude and longitude');
+//   //       return;
+//   //     }
+
+//   //     const latLongArr = [lat, long];
+//   //     await axios.post('http://localhost:3000/getLatLong', latLongArr);
+
+//   //     // After sending coordinates, fetch irradiation data
+//   //     const irradiationResponse = await axios.get('http://localhost:3000/getIrradiationData');
+//   //     setIrradiationData(irradiationResponse.data);
+//   //   } catch (error) {
+//   //     console.error('Error:', error);
+
+//   //   }
+//   // };
+//********************ewmove code before this line************************ */
+//   return (
+//     <div className='flex flex-row'>
+//       <div>
+//         <Sidebar />
+//         <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+//           <span className="sr-only">Open sidebar</span>
+//           <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+//             <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+//           </svg>
+//         </button>
+//       </div>
+
+//       <div>
+//         <div style={{ position: 'relative', width: '100%' }} className='overflow-x-hidden'>
+//           {lat === null || long === null ? (
+//             <div role="status" className='flex items-center justify-center h-screen'>
+//               <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-black" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+//                 <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+//               </svg>
+//               <span className="sr-only">Loading...</span>
+//             </div>
+//           ) : (
+//             <div ref={mapContainerRef} style={{ height: '100vh', width: '100vw' }} />
+//           )}
+
+//           {/* Area Display */}
+//           {roundedArea && (
+//             <div className="absolute top-20 right-5 bg-white text-black shadow-2xl rounded-xl p-6 border border-gray-300 transition-transform transform hover:scale-105 z-10">
+//               <p className="text-2xl font-bold text-indigo-600">
+//                 {roundedArea}
+//               </p>
+//               <p className="text-md text-gray-500">square meters</p>
+//             </div>
+//           )}
+
+//           {/* Weather Data */}
+
+//           {lat !== null && long !== null && (
+            
+
+//             <div className="absolute top-48 right-[16px] flex flex-col space-y-4 w-64 z-10">
+//               <div className="flex flex-col space-y-4 items-end">
+//                 {/* Weather Data */}
+//                 <div className="shadow-2xl rounded-xl transition-transform transform hover:scale-105">
+//                   <WeatherData />
+//                 </div>
+
+//                 {/* Irradiation Data */}
+//                 <div className="shadow-2xl rounded-xl transition-transform transform hover:scale-105">
+//                   <p>solar potential is: {solarPotential} kWh</p>
+//                   <IrradiationData />
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MapboxExample;
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//v2code:
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import * as turf from '@turf/turf'
+import * as turf from '@turf/turf';
+import axios from 'axios';
 import Sidebar from './Sidebar';
 import WeatherData from './WeatherData';
 import IrradiationData from './IrradiationData';
-
+import { Sun, Ruler, Bolt } from 'lucide-react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import axios from 'axios';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 const MapboxExample = () => {
   const mapContainerRef = useRef(null);
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
-  const [roundedArea, setRoundedArea] = useState();
+  const [roundedArea, setRoundedArea] = useState(null);
+  const [showButton, setShowButton] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const [solarPotential, setSolarPotential] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [irradiationData, setIrradiationData] = useState(null);
 
-  // Get user location using Geolocation API
   useEffect(() => {
-    if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
-      return;
-    }
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const { latitude, longitude } = position.coords;
-        setLat(latitude);
-        setLong(longitude);
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
       },
       (error) => {
         alert('Unable to retrieve your location. Please allow location access.');
@@ -201,55 +391,43 @@ const MapboxExample = () => {
     );
   }, []);
 
-  // map creation and positioning of pointer
   useEffect(() => {
     if (lat === null || long === null) return;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2YTcwMzg4IiwiYSI6ImNtNjYybnRudTB2bTQybHF2azNjYm90emoifQ.MvLlGsaPsUBC8wmvg_t7gQ';
-
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/satellite-v9',
-      projection: 'globe',
       center: [long, lat],
       zoom: 18,
     });
 
-    // Add fog effect
-    map.on('style.load', () => {
-      map.setFog({});
+    map.addControl(new mapboxgl.NavigationControl());
+    new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      position: 'top-left',
     });
+    map.addControl(geocoder);
 
-    // Add a marker at the user's location
-    new mapboxgl.Marker()
-      .setLngLat([long, lat])
-      .addTo(map);
-
-    // Add drawing controls to the map
     const draw = new MapboxDraw({
       displayControlsDefault: false,
-      controls: {
-        polygon: true,
-        trash: true,
-      },
-      defaultMode: 'draw_polygon',
+      controls: { polygon: true, trash: true },
     });
     map.addControl(draw);
 
-    // Handle draw events
-    async function updateArea(e) {
+    function updateArea() {
       const data = draw.getAll();
       if (data.features.length > 0) {
         const area = turf.area(data);
         setRoundedArea(Math.round(area * 100) / 100);
-        // send area to the backend as well
-        const areaToSend = (Math.round(area*100) / 100)
-        const res = await axios.get(`http://localhost:3000/calculatePotential?area=${areaToSend}`) // this is undefined
-        // const res = await axios.get(`http://localhost:3000/calculatePotential?area=112.5`)
-        setSolarPotential(res.data)
+        setShowButton(true);
       } else {
         setRoundedArea(null);
-        if (e.type !== 'draw.delete') alert('Click the map to draw a polygon.');
+        setShowButton(false);
+        setShowResults(false);
       }
     }
 
@@ -257,101 +435,72 @@ const MapboxExample = () => {
     map.on('draw.delete', updateArea);
     map.on('draw.update', updateArea);
 
-    return () => {
-      map.remove();
-    };
+    return () => map.remove();
   }, [lat, long]);
 
-
-
-  // `https://re.jrc.ec.europa.eu/api/MRcalc?lat=${lat}&lon=${long}&optrad=1`
-  // fetching the irradiation data. We need to send it to the backend for calculation
-
-
-
-  // sending data to the /getLatLong endpoint
-  // Send coordinates to backend
-  // const sendLatLongData = async () => {
-  //   try {
-  //     if (!lat || !long) {
-  //       setError('Please provide both latitude and longitude');
-  //       return;
-  //     }
-
-  //     const latLongArr = [lat, long];
-  //     await axios.post('http://localhost:3000/getLatLong', latLongArr);
-
-  //     // After sending coordinates, fetch irradiation data
-  //     const irradiationResponse = await axios.get('http://localhost:3000/getIrradiationData');
-  //     setIrradiationData(irradiationResponse.data);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-
-  //   }
-  // };
+  const handleCalculatePotential = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/calculatePotential?area=${roundedArea}`);
+      setSolarPotential(response.data);
+      setShowResults(true);
+    } catch (error) {
+      console.error('Error fetching solar potential:', error);
+    }
+  };
 
   return (
-    <div className='flex flex-row'>
-      <div>
-        <Sidebar />
-        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-          <span className="sr-only">Open sidebar</span>
-          <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-          </svg>
-        </button>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+      <header className="bg-white shadow-sm w-full mb-4">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center space-x-2">
+            <Sun className="text-yellow-500" size={32} />
+            <h1 className="text-2xl font-bold text-gray-900">Solar Power Estimation Dashboard</h1>
+          </div>
+        </div>
+      </header>
+      <p className="text-lg font-semibold text-gray-700 mb-2">Please select the area to calculate Potential</p>
+      <Sidebar />
+      <div className="relative w-[80vw] h-[80vh] bg-white shadow-lg rounded-xl overflow-hidden">
+        {lat === null || long === null ? (
+          <div className="flex items-center justify-center h-full">Loading...</div>
+        ) : (
+          <div ref={mapContainerRef} className="w-full h-full" />
+        )}
       </div>
 
-      <div>
-        <div style={{ position: 'relative', width: '100%' }} className='overflow-x-hidden'>
-          {lat === null || long === null ? (
-            <div role="status" className='flex items-center justify-center h-screen'>
-              <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-black" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
-              </svg>
-              <span className="sr-only">Loading...</span>
-            </div>
-          ) : (
-            <div ref={mapContainerRef} style={{ height: '100vh', width: '100vw' }} />
-          )}
-
-          {/* Area Display */}
-          {roundedArea && (
-            <div className="absolute top-20 right-5 bg-white text-black shadow-2xl rounded-xl p-6 border border-gray-300 transition-transform transform hover:scale-105 z-10">
-              <p className="text-2xl font-bold text-indigo-600">
-                {roundedArea}
-              </p>
-              <p className="text-md text-gray-500">square meters</p>
-            </div>
-          )}
-
-          {/* Weather Data */}
-
-          {lat !== null && long !== null && (
-            
-
-            <div className="absolute top-48 right-[16px] flex flex-col space-y-4 w-64 z-10">
-              <div className="flex flex-col space-y-4 items-end">
-                {/* Weather Data */}
-                <div className="shadow-2xl rounded-xl transition-transform transform hover:scale-105">
-                  <WeatherData />
-                </div>
-
-                {/* Irradiation Data */}
-                <div className="shadow-2xl rounded-xl transition-transform transform hover:scale-105">
-                  <p>solar potential is: {solarPotential} kWh</p>
-                  <IrradiationData />
+      {lat !== null && long !== null && showButton && (
+        <div className="mt-4 flex flex-col items-center space-y-4 w-full">
+          <button
+            onClick={handleCalculatePotential}
+            className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-600"
+          >
+            <Sun size={20} />
+            <span>Calculate Potential</span>
+          </button>
+          {showResults && (
+            <div className="grid grid-cols-2 gap-6 w-full max-w-4xl mt-4">
+              <div className="p-6 bg-white rounded-lg shadow-md flex items-center space-x-4">
+                <Ruler className="text-blue-600" size={24} />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-700">Area</h3>
+                  <p className="text-2xl font-bold text-gray-900">{roundedArea} m²</p>
                 </div>
               </div>
+              <div className="p-6 bg-white rounded-lg shadow-md flex items-center space-x-4">
+                <Bolt className="text-yellow-600" size={24} />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-700">Solar Potential</h3>
+                  <p className="text-2xl font-bold text-gray-900">{solarPotential} kWh</p>
+                </div>
+              </div>
+              <IrradiationData lat={lat} long={long} className="w-full p-6 bg-white rounded-lg shadow-md" />
+              <WeatherData className="w-full p-6 bg-white rounded-lg shadow-md" />
             </div>
           )}
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
 export default MapboxExample;
-
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
