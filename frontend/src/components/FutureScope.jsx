@@ -4,7 +4,7 @@ import {useNavigate} from "react-router"
 
 function FutureScope() {
     const navigate = useNavigate();
-    
+    const date = new Date();
 
 
   return (
@@ -129,7 +129,8 @@ function FutureScope() {
               <span className="text-xl font-bold">helioHarvest</span>
             </div>
             <p className="text-sm text-sky-300">
-              © 2024 helioHarvest. All rights reserved.
+                
+              © {date.getFullYear()} helioHarvest. All rights reserved.
             </p>
           </div>
         </div>
