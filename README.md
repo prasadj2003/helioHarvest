@@ -1,8 +1,8 @@
-# HelioHarvest
+# helioHarvest
 
-## 🌞 Harnessing Solar Potential with HelioHarvest
+## 🌞 Harnessing Solar Potential with helioHarvest
 
-HelioHarvest is an innovative application designed to analyze solar potential using geospatial data and advanced mapping technologies. By leveraging real-time weather data and interactive mapping tools, HelioHarvest provides accurate insights into solar energy feasibility for a given area.
+helioHarvest is an innovative application designed to analyze solar potential using geospatial data and advanced mapping technologies. By leveraging real-time weather data and interactive mapping tools, helioHarvest provides accurate insights into solar energy feasibility for a given area.
 
 ## 🚀 Features
 
@@ -54,4 +54,4 @@ For any queries or collaborations, feel free to reach out!
 
 ---
 
-🌍 *HelioHarvest - Pioneering the Future of Solar Energy*
+🌍 *helioHarvest - Pioneering the Future of Solar Energy*
