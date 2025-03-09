@@ -14,6 +14,7 @@ function App() {
         <Route path="/MapboxExample" element={<MapboxExample />} />
         <Route path="/" element={<Home />} />
         <Route path='/futureScope' element={<FutureScope />} />
+        <Route path='/weatherComponent' element={<WeatherComponent />} />
       </Routes>
     </BrowserRouter>
     // <WeatherComponent />
