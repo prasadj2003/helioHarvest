@@ -83,7 +83,7 @@ app.get('/calculatePotential', async (req, res) => {
         const efficiency = 0.2 // considering 20% as an average
         const G_avg = monthlyAverageSolarIrradiation[monthNames[date.getMonth()]]
 
-        solarPotential = ((0.7 * numericalArea) * efficiency * G_avg) * (1-lossFactor)
+        solarPotential = ((0.7 * numericalArea) * efficiency * G_avg) * (1-lossFactor) * efficiency
         console.log("solar potential is: " + solarPotential.toFixed(2))
         roundedSolarPotential = solarPotential.toFixed(2)
         res.json(roundedSolarPotential)

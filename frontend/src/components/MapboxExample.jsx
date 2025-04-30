@@ -38,7 +38,7 @@
 //   useEffect(() => {
 //     if (lat === null || long === null) return;
 
-//     mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2YTcwMzg4IiwiYSI6ImNtNjYybnRudTB2bTQybHF2azNjYm90emoifQ.MvLlGsaPsUBC8wmvg_t7gQ';
+//     mapboxgl.accessToken = 'your_access_token';
 
 //     const map = new mapboxgl.Map({
 //       container: mapContainerRef.current,
@@ -207,7 +207,7 @@ const MapboxExample = () => {
   useEffect(() => {
     if (lat === null || long === null) return;
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2YTcwMzg4IiwiYSI6ImNtNjYybnRudTB2bTQybHF2azNjYm90emoifQ.MvLlGsaPsUBC8wmvg_t7gQ';
+    mapboxgl.accessToken = 'your_access_token';
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -356,6 +356,7 @@ const MapboxExample = () => {
     //   </div>
     // </div>
 
+// THis is where i left ------------------------------------------------------------------------------------------------------------------
 <div className="flex flex-row min-h-screen bg-gray-100">
   {/* Sidebar Section - Collapsible on mobile */}
   <div className="w-64 bg-white shadow-lg hidden sm:block transition-all duration-300">
@@ -439,6 +440,8 @@ const MapboxExample = () => {
       </div>
     )}
   </div>
+
+  //
 </div>
 
 

@@ -29,7 +29,7 @@
 //         const fetchWeatherData = async () => {
 //             try {
 //                 const { latitude, longitude } = await getLatLong();
-//                 const apiKey = 'bBciv2jGaNAVtnFoncviPAcRrEseL5W2';
+//                 const apiKey = 'your_api_key';
 //                 const url = `https://api.tomorrow.io/v4/weather/realtime?location=${latitude},${longitude}&apikey=${apiKey}`;
 //                 const response = await axios.get(url);
 //                 console.log(response.data)
@@ -96,7 +96,7 @@ const WeatherData = () => {
         const fetchWeatherData = async () => {
             try {
                 const { latitude, longitude } = await getLatLong();
-                const apiKey = 'bBciv2jGaNAVtnFoncviPAcRrEseL5W2';
+                const apiKey = 'your_api_key';
                 const url = `https://api.tomorrow.io/v4/weather/realtime?location=${latitude},${longitude}&apikey=${apiKey}`;
                 const response = await axios.get(url);
                 console.log(response.data)
@@ -111,7 +111,7 @@ const WeatherData = () => {
     }, []);
 
     return (
-        <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg p-6 shadow-lg w-80 flex flex-col items-center">
+        <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg p-6 shadow-lg w-auto flex flex-col items-center">
             {error ? (
                 <p className="text-red-500">{error}</p>
             ) : weather ? (

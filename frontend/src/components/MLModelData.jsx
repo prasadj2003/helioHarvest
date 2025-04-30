@@ -30,7 +30,7 @@
 //         const fetchWeatherData = async () => {
 //             try {
 //                 const { latitude, longitude } = await getLatLong();
-//                 const apiKey = 'bBciv2jGaNAVtnFoncviPAcRrEseL5W2';
+//                 const apiKey = 'your_api_key';
 //                 const url = `https://api.tomorrow.io/v4/weather/realtime?location=${latitude},${longitude}&apikey=${apiKey}`;
 //                 const response = await axios.get(url);
 //                 console.log(response.data)
@@ -59,8 +59,8 @@
 //                 const res = await axios.get(`https://api.meteomatics.com/${startTime}--${endTime}:PT1H/sun_elevation:d/${latitude},${longitude}/json`, 
 //                     {
 //                         auth: {
-//                             username: "student_joshi_prasad",
-//                             password: "6a4A2dQ3Bj"
+//                             username: "yyour_username",
+//                             password: "your_password"
 //                         }
 //                     }
 //                 );
@@ -140,7 +140,7 @@ const WeatherComponent = () => {
         const fetchWeatherData = async () => {
             try {
                 const { latitude, longitude } = await getLatLong();
-                const apiKey = 'bBciv2jGaNAVtnFoncviPAcRrEseL5W2';
+                const apiKey = 'your_api_key';
                 const url = `https://api.tomorrow.io/v4/weather/realtime?location=${latitude},${longitude}&apikey=${apiKey}`;
                 const response = await axios.get(url);
                 console.log(response.data)
@@ -169,8 +169,8 @@ const WeatherComponent = () => {
                 const res = await axios.get(`https://api.meteomatics.com/${startTime}--${endTime}:PT1H/sun_elevation:d/${latitude},${longitude}/json`, 
                     {
                         auth: {
-                            username: "student_joshi_prasad",
-                            password: "6a4A2dQ3Bj"
+                            username: "<your_username>",
+                            password: "<your_password>"
                         }
                     }
                 );

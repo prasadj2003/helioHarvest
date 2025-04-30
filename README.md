@@ -37,6 +37,16 @@ helioHarvest is an innovative application designed to analyze solar potential us
 3. Users draw polygons on the map to define an area.
 4. The system calculates the solar potential using irradiation data and displays it.
 
+## Steps to Run project on Local Machine
+1. Fork the project
+2. Clone the project by running `git clone https://github.com/prasadj2003/helioHarvest.git`
+3. `cd frontend` 
+4. configure auth params in `MLModelData.jsx` fetchSolarZenithAngle function
+5. Configure auth params in `MLModelOutput.jsx` fetchSolarZenithAngle function and api key in fetchWeatherData function
+
+
+View the PPT at : [google drive](https://drive.google.com/file/d/1puTaK3E6mRIFqEMdypjwY62r7aVS_Vdp/view?usp=sharing)
+
 ## 🌟 Future Scope
 
 * **AI-based Solar Optimization**: Use AI to optimize panel placements for maximum efficiency.
